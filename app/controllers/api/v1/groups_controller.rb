@@ -5,8 +5,7 @@ class Api::V1::GroupsController < ApplicationController
   end
 
   def search
-    @groups = Group.where("(name = ?) OR (cathegory = ?)", group_params[:name], group_params[:cathegory])
-
+    @groups = Group.where("(name LIKE ?) AND (cathegory LIKE ?)", "%#{group_params[:name]}%" , "%#{group_params[:cathegory]}%").limit(30)
     render json: @groups
   end
 
