@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :groups do
         get "/" , :action => "index"
+        get "/search", :action => "search"
       end
     end
   end
