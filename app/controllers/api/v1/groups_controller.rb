@@ -1,6 +1,6 @@
 class Api::V1::GroupsController < ApplicationController
   def index
-    @groups = Group.all.shuffle.limit(35)
+    @groups = Group.all.limit(35).shuffle
     render json: @groups
   end
 
