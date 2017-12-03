@@ -1,11 +1,12 @@
 class Api::V1::GroupsController < ApplicationController
   def index
-    @groups = Group.all
+    @groups = Group.all.shuffle.limit(35)
     render json: @groups
   end
 
   def search
-    @groups = Group.where("(name LIKE ?) AND (cathegory LIKE ?)", "%#{group_params[:name]}%" , "%#{group_params[:cathegory]}%").limit(30)
+    return if params[:keywords] == nil
+    @groups = Group.search_keywords(params[:keywords])
     render json: @groups
   end
 
