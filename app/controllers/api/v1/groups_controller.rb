@@ -1,8 +1,9 @@
 class Api::V1::GroupsController < ApplicationController
   def index
-    if params[:keywords] == nil || ""
+    if params[:keywords] == nil
       @groups = Group.all.shuffle.take(params[:limit].to_i)
     else
+      p params[:keywords]
       @groups = Group.search_keywords(params[:keywords])
     end
       render json: @groups
