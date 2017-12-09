@@ -1,15 +1,12 @@
 class Api::V1::GroupsController < ApplicationController
   def index
-    all = Group.all
-
     if params[:range].nil?
-      @groups = all.take(params[:limit].to_i)
-    elsif
-      @groups = all.drop(params[:range].to_i).take(params[:limit].to_i)
+      @groups = Group.all.take(params[:limit].to_i)
+      render json: @groups
     else
-      all.count < params[:range]
+      @next_groups = Group.all.drop(params[:range].to_i).take(params[:limit].to_i)
+      render json: @next_groups
     end
-    render json: @groups
   end
 
   def search
