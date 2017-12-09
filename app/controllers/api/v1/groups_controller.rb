@@ -1,6 +1,12 @@
 class Api::V1::GroupsController < ApplicationController
   def index
-    @groups = Group.all.shuffle.take(params[:limit].to_i)
+    all = Group.all
+
+    if params[:range].nil?
+      @groups = all.take(params[:limit].to_i)
+    else
+      @groups = all.drop(params[:range].to_i).take(params[:limit].to_i)
+    end
     render json: @groups
   end
 
