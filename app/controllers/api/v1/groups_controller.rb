@@ -4,8 +4,10 @@ class Api::V1::GroupsController < ApplicationController
 
     if params[:range].nil?
       @groups = all.take(params[:limit].to_i)
-    else
+    elsif
       @groups = all.drop(params[:range].to_i).take(params[:limit].to_i)
+    else
+      all.count < params[:range]
     end
     render json: @groups
   end
